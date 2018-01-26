@@ -45,7 +45,7 @@ async function gdriveHandler(req, res, next) {
 var server = restify.createServer();
 server.get('/api/gddirect/:gdriveid', gdriveHandler);
 server.get('/',function(req,res){
-    res.send('Welcome to app ghost!!!');
+    res.send('Welcome to api ghost!!!');
 });
 // server.head('/hello/:name', respond);
 
