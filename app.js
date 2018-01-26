@@ -44,6 +44,9 @@ async function gdriveHandler(req, res, next) {
 
 var server = restify.createServer();
 server.get('/api/gddirect/:gdriveid', gdriveHandler);
+server.get('/',function(req,res){
+    res.send('Welcome to api ghost!!!');
+});
 // server.head('/hello/:name', respond);
 
 var port = normalizePort(process.env.PORT || '4000');
