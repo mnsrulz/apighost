@@ -1,5 +1,6 @@
 var restify = require('restify');
 var gddirect = require('gddirecturl');
+const https = require('https');
 async function gdriveHandler(req, res, next) {
     try {
         var o = await gddirect.getMediaLink(req.params.gdriveid);
@@ -11,8 +12,15 @@ async function gdriveHandler(req, res, next) {
 
 async function bloidmediaplayerHandler(req, res, next){
 	var u = 'https://github.com/manishrawat4u/plugin.video.bloimediaplayer/releases/download/0.1.0/plugin.video.bloimediaplayer-0.1.0.zip';
-	res.writeHead(302, {Location: u});
-	res.end();
+	const request = https.get(u, function(response) {
+        const contentType = response.headers['content-type'];
+
+        console.log(contentType);
+
+        res.setHeader('Content-Type', contentType);
+
+        response.pipe(res);
+    });
 }
 
 var server = restify.createServer();
