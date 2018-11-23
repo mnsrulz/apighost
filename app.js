@@ -9,12 +9,18 @@ async function gdriveHandler(req, res, next) {
     }
 }
 
+async function bloidmediaplayerHandler(req, res, next){
+	var u = 'https://github.com/manishrawat4u/plugin.video.bloimediaplayer/releases/download/0.1.0/plugin.video.bloimediaplayer-0.1.0.zip';
+	res.writeHead(302, {Location: u});
+	res.end();
+}
+
 var server = restify.createServer();
 server.get('/api/gddirect/:gdriveid', gdriveHandler);
+server.get('/api/bloimediaplayer', bloidmediaplayerHandler);
 server.get('/', function (req, res) {
     res.send('Welcome to api ghost!!!');
 });
-
 var port = normalizePort(process.env.PORT || '4000');
 
 server.listen(port, function () {
