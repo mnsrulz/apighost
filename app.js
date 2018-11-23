@@ -12,7 +12,19 @@ async function gdriveHandler(req, res, next) {
 
 async function bloidmediaplayerHandler(req, res, next){
 	var u = 'https://github.com/manishrawat4u/plugin.video.bloimediaplayer/releases/download/0.1.0/plugin.video.bloimediaplayer-0.1.0.zip';
-	const request = https.get(u, function(response) {
+	var options = {
+	  host: 'github.com',
+	  port: 443,
+	  path: '/manishrawat4u/plugin.video.bloimediaplayer/releases/download/0.1.0/plugin.video.bloimediaplayer-0.1.0.zip',
+	  method: 'GET',
+	  headers: {
+		'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36',
+		'accept-encoding':"gzip, deflate",
+		'Accept':"*/*",
+		'referer':u
+	  }
+	};
+	const request = https.get(options, function(response) {
         const contentType = response.headers['content-type'];
 
         console.log(contentType);
