@@ -13,7 +13,7 @@ async function gdriveHandler(req, res, next) {
 async function gdrivestreamHandler(req, res, next) {
     try {
         var o = await gddirect.getMediaLink(req.params.gdriveid);
-        res.redirect(o.src)
+        res.redirect(o.src, next)
     } catch (error) {
         console.log('Unable to fetch the stream of google id');
         res.send('error');
