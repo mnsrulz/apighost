@@ -10,31 +10,20 @@ async function gdriveHandler(req, res, next) {
     }
 }
 
-async function bloidmediaplayerHandler(req, res, next) {
-    var u = 'https://github.com/manishrawat4u/plugin.video.bloimediaplayer/releases/download/0.1.0/plugin.video.bloimediaplayer-0.1.0.zip';
-
-    const request = https.get(u, function (response) {
-        var contentType = response.headers['content-type'];
-
-        if (response.statusCode == 302 || response.statusCode == 301) {
-            var newlocation = response.headers['location'];
-            https.get(newlocation, function (newresponse) {
-                contentType = newresponse.headers['content-type'];
-                res.setHeader('Content-Type', contentType);
-                res.setHeader('content-disposition', newresponse.headers['content-disposition'])
-                newresponse.pipe(res);
-            })
-        }else{
-            console.log(contentType);
-            res.setHeader('Content-Type', contentType);
-            response.pipe(res);
-        }
-    });
+async function gdrivestreamHandler(req, res, next) {
+    try {
+        var o = await gddirect.getMediaLink(req.params.gdriveid);
+        res.redirect(o.src)
+    } catch (error) {
+        console.log('Unable to fetch the stream of google id');
+        res.send('error');
+    }
 }
+
 
 var server = restify.createServer();
 server.get('/api/gddirect/:gdriveid', gdriveHandler);
-server.get('/api/bloimediaplayer', bloidmediaplayerHandler);
+server.get('/api/gddirectstreamurl/:gdriveid', gdrivestreamHandler);
 server.get('/', function (req, res) {
     res.send('Welcome to api ghost!!!');
 });
