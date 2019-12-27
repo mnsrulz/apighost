@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "gddirecturl": "0.0.5",
+    "googleapis": "^46.0.0",
     "restify": "^8.5.1"
   },
   "devDependencies": {},
