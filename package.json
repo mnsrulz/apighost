@@ -4,12 +4,8 @@
   "description": "api for all",
   "main": "app.js",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "cookie": "^0.3.1",
-    "gddirecturl": "0.0.3",
-    "got": "^8.0.3",
-    "restify": "^6.3.4",
-    "set-cookie-parser": "^2.0.0"
+    "gddirecturl": "0.0.5",
+    "restify": "^8.5.1"
   },
   "devDependencies": {},
   "scripts": {
