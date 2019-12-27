@@ -1,5 +1,6 @@
 var restify = require('restify');
 var gddirect = require('gddirecturl');
+const https = require('https');
 async function gdriveHandler(req, res, next) {
     try {
         var o = await gddirect.getMediaLink(req.params.gdriveid);
@@ -9,12 +10,23 @@ async function gdriveHandler(req, res, next) {
     }
 }
 
+async function gdrivestreamHandler(req, res, next) {
+    try {
+        var o = await gddirect.getMediaLink(req.params.gdriveid);
+        res.redirect(o.src, next)
+    } catch (error) {
+        console.log('Unable to fetch the stream of google id');
+        res.send('error');
+    }
+}
+
+
 var server = restify.createServer();
 server.get('/api/gddirect/:gdriveid', gdriveHandler);
+server.get('/api/gddirectstreamurl/:gdriveid', gdrivestreamHandler);
 server.get('/', function (req, res) {
     res.send('Welcome to api ghost!!!');
 });
-
 var port = normalizePort(process.env.PORT || '4000');
 
 server.listen(port, function () {
