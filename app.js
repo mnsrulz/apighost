@@ -1,7 +1,7 @@
 var restify = require('restify');
 var gddirect = require('gddirecturl');
 var gauth = require('./gauth')
-
+var simpleclouduploader = require('simpleclouduploader');
 async function gdriveHandler(req, res, next) {
     try {
         var o = await gddirect.getMediaLink(req.params.gdriveid);
@@ -35,8 +35,8 @@ async function tokenHandler(req, res, next) {
 async function tokenCallbackHandler(req, res, next) {
     try {
         var code = req.query.code;
-        const {tokens} = await gauth.getToken(code);
-        res.send(tokens);    
+        const { tokens } = await gauth.getToken(code);
+        res.send(tokens);
     } catch (error) {
         console.log(error);
         console.log('Unable to get the token for google');
@@ -44,13 +44,27 @@ async function tokenCallbackHandler(req, res, next) {
     }
 }
 
+async function copyToGDrive(req, res, next) {
+    var streamUrl = req.body.streamUrl;
+    var title = req.body.streamTitle;
+    var accessToken = req.body.accessToken;
+
+    simpleclouduploader.copyToGDrive(streamUrl, title, {
+        accessToken: accessToken
+    });
+    res.send('Your request has been queued and process soon.');
+}
+
 var server = restify.createServer();
 server.use(restify.plugins.queryParser());
+server.use(restify.plugins.bodyParser({ mapParams: false }));
 server.get('/api/gddirect/:gdriveid', gdriveHandler);
 server.get('/api/gddirectstreamurl/:gdriveid', gdrivestreamHandler);
 
 server.get('/auth/google/token', tokenHandler);
 server.get('/auth/google/callback', tokenCallbackHandler);
+
+server.post('/api/copytogdrive', copyToGDrive)
 
 server.get('/', function (req, res) {
     res.send('Welcome to api ghost!!!');

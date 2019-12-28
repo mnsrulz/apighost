@@ -6,7 +6,8 @@
   "dependencies": {
     "gddirecturl": "0.0.5",
     "googleapis": "^46.0.0",
-    "restify": "^8.5.1"
+    "restify": "^8.5.1",
+    "simpleclouduploader": "0.0.3-alpha"
   },
   "devDependencies": {},
   "scripts": {
