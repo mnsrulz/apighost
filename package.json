@@ -9,7 +9,7 @@
   "dependencies": {
     "gddirecturl": "0.0.5",
     "googleapis": "^46.0.0",
-    "nurlresolver": "0.0.1-patch02",
+    "nurlresolver": "0.0.1-patch04",
     "restify": "^8.5.1",
     "simpleclouduploader": "0.0.3-alpha"
   },
