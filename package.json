@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "api for all",
   "main": "app.js",
+  "engines": {
+    "node": "10.x"
+  },
   "dependencies": {
     "gddirecturl": "0.0.5",
     "googleapis": "^46.0.0",
